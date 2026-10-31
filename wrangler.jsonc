@@ -1,0 +1,13 @@
+{
+  // Kor website: static files served by Cloudflare Workers (static assets). No Worker code.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "kor-website",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./_site",
+    "not_found_handling": "404-page",
+    "html_handling": "auto-trailing-slash"
+  },
+  // Attaches the custom domain on deploy and creates its DNS record (the domain's DNS is on Cloudflare).
+  "routes": [{ "pattern": "kor.azimulkabir.com", "custom_domain": true }]
+}

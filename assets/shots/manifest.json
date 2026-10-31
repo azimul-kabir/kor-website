@@ -1,0 +1,26 @@
+{
+  "01-home": {
+    "width": 540,
+    "height": 1170
+  },
+  "02-home-tiles": {
+    "width": 540,
+    "height": 1170
+  },
+  "04-tax-detail": {
+    "width": 540,
+    "height": 1170
+  },
+  "06-wealth-assets": {
+    "width": 540,
+    "height": 1170
+  },
+  "07-ereturn": {
+    "width": 540,
+    "height": 1170
+  },
+  "09-calculator": {
+    "width": 540,
+    "height": 1170
+  }
+}

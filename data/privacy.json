@@ -1,0 +1,72 @@
+{
+  "en": {
+    "title": "Privacy policy",
+    "updated": "Last updated 31 October 2026",
+    "intro": "Kor is built so that your tax figures never leave your phone. This policy says what that means in practice.",
+    "sections": [
+      {
+        "title": "What Kor stores",
+        "body": "The figures you enter: your profile, salary, other income, investments, tax already paid and wealth statement. They are saved on this phone only, encrypted with a key held in the Android Keystore. Kor also keeps a few preferences, such as your reminder and theme choices."
+      },
+      {
+        "title": "What Kor does not do",
+        "body": "Kor has no internet permission, so it cannot send anything over the network. It has no account, no sign-in, no analytics, no advertising and no crash reporting. We never receive your figures and have no way to see them."
+      },
+      {
+        "title": "Backups and new phones",
+        "body": "Kor excludes its data from Android backup and device-to-device transfer. If you change phones, your figures do not move with you automatically. Uninstalling Kor or clearing its data deletes them for good."
+      },
+      {
+        "title": "Notifications",
+        "body": "Deadline reminders are off until you turn them on. If you do, Kor asks for notification permission and schedules reminders on the phone. They name the deadline but never show an amount."
+      },
+      {
+        "title": "Copying and saving",
+        "body": "When you tap a line on the e-return summary, Kor copies its amount to the clipboard, marked private on Android 13 and later. On older versions other apps may be able to read the clipboard. Save as PDF writes a file only where you choose, through Android's file picker. What happens to that file afterwards is up to you."
+      },
+      {
+        "title": "Links and email",
+        "body": "The Website and Contact rows open your browser or mail app. Kor itself sends nothing. Anything you email us is seen by us and handled by your mail provider, so please do not include real tax figures or identifiers."
+      },
+      {
+        "title": "Changes and contact",
+        "body": "If this policy changes, the new text ships with the app update and the date above changes. Any change that adds network access would be recorded in the changelog and README first. Questions: kor@azimulkabir.com, or kor.azimulkabir.com."
+      }
+    ]
+  },
+  "bn": {
+    "title": "গোপনীয়তা নীতি",
+    "updated": "সর্বশেষ হালনাগাদ ৩১ অক্টোবর ২০২৬",
+    "intro": "কর এমনভাবে তৈরি যাতে আপনার করের হিসাব কখনোই ফোনের বাইরে না যায়। বাস্তবে এর মানে কী, এই নীতিতে তা বলা হলো।",
+    "sections": [
+      {
+        "title": "কর কী সংরক্ষণ করে",
+        "body": "আপনার দেওয়া হিসাব: প্রোফাইল, বেতন, অন্যান্য আয়, বিনিয়োগ, পরিশোধিত কর ও সম্পদ বিবরণী। এগুলো শুধু এই ফোনেই থাকে এবং অ্যান্ড্রয়েড কীস্টোরে রাখা চাবি দিয়ে এনক্রিপ্ট করা হয়। রিমাইন্ডার ও থিমের পছন্দের মতো কিছু সেটিংসও কর সংরক্ষণ করে।"
+      },
+      {
+        "title": "কর যা করে না",
+        "body": "করের ইন্টারনেট অনুমতি নেই, তাই এটি নেটওয়ার্কে কিছুই পাঠাতে পারে না। কোনো অ্যাকাউন্ট, সাইন-ইন, অ্যানালিটিক্স, বিজ্ঞাপন বা ক্র্যাশ রিপোর্টিং নেই। আপনার হিসাব আমরা কখনো পাই না এবং দেখারও কোনো উপায় নেই।"
+      },
+      {
+        "title": "ব্যাকআপ ও নতুন ফোন",
+        "body": "কর তার তথ্য অ্যান্ড্রয়েড ব্যাকআপ ও ডিভাইস থেকে ডিভাইসে স্থানান্তরের বাইরে রাখে। ফোন বদলালে আপনার হিসাব নিজে থেকে সঙ্গে যাবে না। কর আনইনস্টল করলে বা এর ডেটা মুছলে হিসাব চিরতরে মুছে যায়।"
+      },
+      {
+        "title": "নোটিফিকেশন",
+        "body": "আপনি চালু না করা পর্যন্ত সময়সীমার রিমাইন্ডার বন্ধ থাকে। চালু করলে কর নোটিফিকেশনের অনুমতি চায় এবং ফোনেই রিমাইন্ডার নির্ধারণ করে। রিমাইন্ডারে সময়সীমার কথা থাকে, কিন্তু কোনো অঙ্ক দেখানো হয় না।"
+      },
+      {
+        "title": "কপি ও সংরক্ষণ",
+        "body": "ই-রিটার্ন সারাংশে কোনো লাইনে ট্যাপ করলে কর তার অঙ্ক ক্লিপবোর্ডে কপি করে; অ্যান্ড্রয়েড ১৩ ও পরবর্তী সংস্করণে সেটি ব্যক্তিগত হিসেবে চিহ্নিত থাকে। পুরোনো সংস্করণে অন্য অ্যাপ ক্লিপবোর্ড পড়তে পারতে পারে। পিডিএফ হিসেবে সংরক্ষণ করলে অ্যান্ড্রয়েডের ফাইল বাছাইকারীতে আপনার পছন্দের জায়গাতেই ফাইল লেখা হয়। এরপর সেই ফাইলের কী হবে, তা আপনার হাতে।"
+      },
+      {
+        "title": "লিংক ও ইমেইল",
+        "body": "ওয়েবসাইট ও যোগাযোগ সারি আপনার ব্রাউজার বা মেইল অ্যাপ খোলে। কর নিজে কিছু পাঠায় না। ইমেইলে আমাদের যা পাঠাবেন তা আমরা দেখতে পাব এবং আপনার মেইল প্রদানকারীও সেটি সামলাবে; তাই অনুগ্রহ করে প্রকৃত করের অঙ্ক বা পরিচয়সূচক তথ্য পাঠাবেন না।"
+      },
+      {
+        "title": "পরিবর্তন ও যোগাযোগ",
+        "body": "এই নীতি বদলালে নতুন লেখা অ্যাপ হালনাগাদের সঙ্গে আসবে এবং উপরের তারিখ বদলাবে। নেটওয়ার্ক ব্যবহারের কোনো পরিবর্তন আগে পরিবর্তনের তালিকা ও README-তে লেখা হবে। প্রশ্ন থাকলে: kor@azimulkabir.com বা kor.azimulkabir.com।"
+      }
+    ]
+  }
+}

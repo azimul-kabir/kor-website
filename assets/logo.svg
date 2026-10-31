@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 108 108" role="img" aria-label="Kor">
+  <circle cx="54" cy="54" r="54" fill="#006A4E"/>
+  <g transform="translate(-1.32 3.96) translate(54 54) scale(1.32) translate(-54 -54)">
+    <path fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" d="M26,36V66M41,46L26,59M32,54L42,66M56,46a10,10 0,1 1,0 20a10,10 0,1 1,0 -20M74,66V46M74,56Q75,46 82,46"/>
+    <circle cx="84" cy="63" r="3.5" fill="#FBBF77"/>
+  </g>
+</svg>
