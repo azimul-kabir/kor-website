@@ -8,7 +8,7 @@ The website for [Kor (কর)](https://github.com/azimul-kabir/kor), an offline 
 | `/bn/` | Home page in Bangla |
 | `/privacy/` | The app's privacy policy, English first, then Bangla |
 
-It is plain static HTML and CSS: no JavaScript, no trackers, no requests to other sites (both fonts are self-hosted), and it follows the visitor's light or dark setting and reduced-motion preference. It is meant to be hosted on Cloudflare Workers (static assets), as the Sotorko site is. All links between pages are relative, so it also works under any other address, such as a preview URL.
+It is plain static HTML and CSS: no JavaScript, no trackers, no requests to other sites (both fonts are self-hosted), and it follows the visitor's light or dark setting and reduced-motion preference. It is hosted on Cloudflare Pages, as the Sotorko site is. All links between pages are relative, so it also works under any other address, such as a preview URL.
 
 ## Editing
 
@@ -69,19 +69,18 @@ python3 scripts/make_og.py /path/to/raw /path/to/Inter.ttf     # needs Pillow; a
 
 ## Deploying to Cloudflare
 
-`wrangler.jsonc` serves `_site/`, which `scripts/stage.py` fills with exactly what the site publishes (build scripts, data and docs stay out). The `_headers` file sets a strict Content-Security-Policy: nothing but this site's own images, stylesheet and fonts can load, and inline styles and scripts are not allowed. `wrangler deploy --dry-run` validates the config without an account.
+The site is hosted on **Cloudflare Pages**, as the Sotorko site is. `scripts/stage.py` fills `_site/` with exactly what the site publishes (build scripts, data and docs stay out) and copies `_headers` and `_redirects` into it, which Pages applies. The `_headers` file sets a strict Content-Security-Policy: nothing but this site's own images, stylesheet and fonts can load, and inline styles and scripts are not allowed.
 
-### One-time setup in the Cloudflare dashboard (Workers Builds)
+### One-time setup in the Cloudflare dashboard
 
-1. **Workers & Pages, Create, Import a repository**, and pick `azimul-kabir/kor-website`.
-2. Project name: `kor-website` (it must match `name` in `wrangler.jsonc`).
-3. Production branch: `main`. Root directory: `/`.
-4. **Build command:** `npm run build`. This rebuilds the pages, runs the checks and stages `_site/`, and fails the deploy if anything is stale or broken.
-5. **Deploy command:** `npx wrangler deploy` (the default). No environment variables or secrets are needed.
-6. Save and deploy. After that every push to `main` publishes, and pull requests get a preview build.
-7. **Domain:** `routes` in `wrangler.jsonc` attaches `kor.azimulkabir.com` as a custom domain on deploy and creates its DNS record, which needs the `azimulkabir.com` zone to be on the same Cloudflare account. If you would rather add it by hand, remove `routes` and use the project's **Settings, Domains & Routes**.
+1. **Workers & Pages, Create, Pages, Connect to Git**, and pick `azimul-kabir/kor-website`.
+2. Production branch: `main`. Framework preset: **None**. Root directory: `/`.
+3. **Build command:** `npm run build`. This rebuilds the pages, runs the checks and stages `_site/`, and fails the deploy if anything is stale or broken.
+4. **Build output directory:** `_site`.
+5. No environment variables are needed. Save and deploy: every push to `main` then publishes, and other branches and pull requests get a preview URL, with a Cloudflare check on the commit.
+6. **Custom domain:** in the project, **Custom domains, Set up a domain**, `kor.azimulkabir.com`. A domain can belong to only one project, so remove it from any earlier Worker or Pages project first.
 
-The build needs Python 3 (no packages) and Node for `wrangler`, which the Workers Builds image provides; `package-lock.json` pins wrangler.
+The build needs Python 3 (no packages) and Node, both in the Pages build image; `package-lock.json` pins `wrangler`, which is only used for local previews. `wrangler.jsonc` is the Workers form of the same site (static assets from `_site/`) and is there for `npm run deploy`; Pages does not need it.
 
 ### From your own machine
 
@@ -89,7 +88,7 @@ The build needs Python 3 (no packages) and Node for `wrangler`, which the Worker
 npm install          # once; only wrangler
 npm run build        # build, check and stage into _site/
 npm run preview      # build, then serve it locally with wrangler
-npm run deploy       # build, then wrangler deploy (needs `wrangler login`)
+npm run deploy       # build, then deploy to a Worker with wrangler (needs `wrangler login`); not used for Pages
 ```
 
 CI (`.github/workflows/check.yml`) runs the same checks on every push and pull request, so a problem shows up on GitHub as well as in the Cloudflare build.
