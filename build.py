@@ -131,7 +131,7 @@ def home(t, lang: str) -> str:
     return (
         f'<!doctype html><html lang="{lang}"><head>'
         + head(t, url, {"en": c.SITE + "/", "bn": c.SITE + "/bn/", "x-default": c.SITE + "/"}, up, "en_BD" if lang == "en" else "bn_BD")
-        + "</head><body>"
+        + "</head><body><!--email_off-->"
         + header(t, up, home_href, other, privacy)
         + '<main id="main">'
         '<section class="hero" aria-labelledby="top"><div class="wrap">'
@@ -156,7 +156,7 @@ def home(t, lang: str) -> str:
         f'<div class="card"><h3>{e(st["works_title"])}</h3><ul>{works}</ul></div>'
         f'<div class="card later"><h3>{e(st["later_title"])}</h3><ul>{later}</ul>'
         f'<p><a href="mailto:{c.EMAIL}">{e(st["link"])}</a></p></div></div></div></section>'
-        "</main>" + footer(t, privacy) + "</body></html>"
+        "</main>" + footer(t, privacy) + "<!--/email_off--></body></html>"
     )
 
 
@@ -181,14 +181,14 @@ def privacy_page() -> str:
             "../",
             "en_BD",
         )
-        + '</head><body><div class="page-head">'
+        + '</head><body><!--email_off--><div class="page-head">'
         + header(t, "../", "../", "../bn/", "./")
         + '</div><main id="main" class="page"><div class="wrap">'
         + f'<p><a href="../">{e(c.EN["privacy_page"]["back"])}</a> · <a href="#bn" lang="bn">বাংলায় পড়ুন</a></p>'
         + sections
         + "</div></main>"
         + footer(t, "./")
-        + "</body></html>"
+        + "<!--/email_off--></body></html>"
     )
 
 
@@ -200,13 +200,18 @@ def not_found() -> str:
         '<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">'
         f'<title>{e(n["title"])} · Kor</title><meta name="robots" content="noindex">'
         '<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/assets/style.css">'
-        '</head><body><div class="page-head">'
+        '</head><body><!--email_off--><div class="page-head">'
         + header(t, "/", "/", "/bn/", "/privacy/")
         + f'</div><main id="main" class="page"><div class="wrap doc"><h1>{e(n["title"])}</h1><p>{e(n["body"])}</p>'
         f'<p><a class="btn btn-primary" href="/">{e(n["link"])}</a></p></div></main>'
         + footer(t, "/privacy/")
-        + "</body></html>"
+        + "<!--/email_off--></body></html>"
     )
+
+
+# Cloudflare Pages rewrites email addresses into /cdn-cgi/l/email-protection links and decodes them with a script.
+# The Content-Security-Policy forbids scripts, so those links would not work. The <!--email_off--> comments around
+# each page body tell Cloudflare to leave the mailto links alone.
 
 
 def write(path: str, text: str) -> None:

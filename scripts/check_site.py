@@ -103,6 +103,12 @@ for name in PAGES:
     if re.search(r"GPL|General Public Licen", text):
         errors.append(f"{name}: mentions the GPL, but the app's source is private")
 
+# Cloudflare would rewrite email links into script-decoded ones, which the CSP blocks (see build.py).
+for name in PAGES:
+    text = (ROOT / name).read_text(encoding="utf-8")
+    if "mailto:" in text and not ("<!--email_off-->" in text and "<!--/email_off-->" in text):
+        errors.append(f"{name}: has an email link but is not wrapped in <!--email_off-->")
+
 # The two home pages must link to each other with matching languages.
 en, bn = pages["index.html"], pages["bn/index.html"]
 if en.lang != "en" or bn.lang != "bn":
