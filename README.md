@@ -67,17 +67,32 @@ python3 scripts/make_og.py /path/to/raw /path/to/Inter.ttf     # needs Pillow; a
 
 `assets/fonts/` holds Inter (Latin) and Noto Sans Bengali, both under the SIL Open Font License 1.1 (see `assets/fonts/OFL.txt`). Each is a subset of the original (Latin or Bengali characters only), converted to WOFF2, and is a variable font so one file covers every weight.
 
-## Deploying
+## Deploying to Cloudflare
 
-`wrangler.jsonc` serves `_site/`, which `scripts/stage.py` fills with exactly what the site publishes (build scripts, data and docs stay out). The `_headers` file sets a strict Content-Security-Policy: nothing but this site's own images, stylesheet and fonts can load, and inline styles and scripts are not allowed.
+`wrangler.jsonc` serves `_site/`, which `scripts/stage.py` fills with exactly what the site publishes (build scripts, data and docs stay out). The `_headers` file sets a strict Content-Security-Policy: nothing but this site's own images, stylesheet and fonts can load, and inline styles and scripts are not allowed. `wrangler deploy --dry-run` validates the config without an account.
+
+### One-time setup in the Cloudflare dashboard (Workers Builds)
+
+1. **Workers & Pages, Create, Import a repository**, and pick `azimul-kabir/kor-website`.
+2. Project name: `kor-website` (it must match `name` in `wrangler.jsonc`).
+3. Production branch: `main`. Root directory: `/`.
+4. **Build command:** `npm run build`. This rebuilds the pages, runs the checks and stages `_site/`, and fails the deploy if anything is stale or broken.
+5. **Deploy command:** `npx wrangler deploy` (the default). No environment variables or secrets are needed.
+6. Save and deploy. After that every push to `main` publishes, and pull requests get a preview build.
+7. **Domain:** `routes` in `wrangler.jsonc` attaches `kor.azimulkabir.com` as a custom domain on deploy and creates its DNS record, which needs the `azimulkabir.com` zone to be on the same Cloudflare account. If you would rather add it by hand, remove `routes` and use the project's **Settings, Domains & Routes**.
+
+The build needs Python 3 (no packages) and Node for `wrangler`, which the Workers Builds image provides; `package-lock.json` pins wrangler.
+
+### From your own machine
 
 ```bash
 npm install          # once; only wrangler
-npm run build        # build, check and stage
-npm run deploy       # build, then wrangler deploy
+npm run build        # build, check and stage into _site/
+npm run preview      # build, then serve it locally with wrangler
+npm run deploy       # build, then wrangler deploy (needs `wrangler login`)
 ```
 
-The `routes` entry in `wrangler.jsonc` attaches `kor.azimulkabir.com` as a custom domain on deploy, which needs that domain's DNS to be on Cloudflare. CI (`.github/workflows/check.yml`) runs the same checks on every push and pull request.
+CI (`.github/workflows/check.yml`) runs the same checks on every push and pull request, so a problem shows up on GitHub as well as in the Cloudflare build.
 
 ## Not done yet
 
