@@ -22,7 +22,7 @@ python3 build.py        # needs only Python 3, no packages
 
 Look at it locally with `python3 -m http.server` and open http://localhost:8000.
 
-Keep the claims true to the app: the "works today" and "not yet" lists follow the status table in the [app's README](https://github.com/azimul-kabir/kor#status), and there is no download button until the app has a release.
+Keep the claims true to the app: the "works today" and "not yet" lists follow the status table in the app's README (the app repository is private). The site links to no repository and makes no claim about the app's licence, and `scripts/check_site.py` fails the build if a GitHub link or a GPL mention appears. There is no download button until the app has a release: the call to action is an email to kor@azimulkabir.com.
 
 ### The privacy policy
 
@@ -96,4 +96,4 @@ CI (`.github/workflows/check.yml`) runs the same checks on every push and pull r
 ## Not done yet
 
 - The Bangla text is a first draft and needs a read by a native speaker.
-- There is no download or Play Store link, because the app has no release yet.
+- There is no download or Play Store link, because the app has no release yet; the call to action is an email.

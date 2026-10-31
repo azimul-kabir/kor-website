@@ -57,7 +57,6 @@ def header(t, up: str, home: str, other: str, privacy: str, github: bool = True)
         f'<a class="hide-small" href="{home}#screens">{e(n["screens"])}</a>'
         f'<a class="hide-small" href="{home}#privacy">{e(n["privacy"])}</a>'
         f'<a class="hide-small" href="{home}#status">{e(n["status"])}</a>'
-        f'<a class="hide-small" href="{c.GITHUB}">{e(n["github"])}</a>'
     )
     return (
         f'<a class="skip" href="#main">{e(t["skip"])}</a>'
@@ -74,10 +73,10 @@ def footer(t, privacy: str) -> str:
     return (
         '<footer><div class="wrap foot">'
         f'<p>{e(f["disclaimer"])}</p>'
-        f'<div class="links"><a href="{c.GITHUB}">{e(f["source"])}</a><a href="{privacy}">{e(f["privacy"])}</a>'
+        f'<div class="links"><a href="{privacy}">{e(f["privacy"])}</a>'
         f'<a href="mailto:{c.EMAIL}">{e(f["contact"])}: {c.EMAIL}</a>'
         f'<a href="{c.DEVELOPER}">{e(f["developer"])}</a></div>'
-        f'<p>{e(f["made"])}. {e(f["licence"])}</p>'
+        f'<p>{e(f["made"])}.</p>'
         '</div></footer>'
     )
 
@@ -138,7 +137,7 @@ def home(t, lang: str) -> str:
         '<section class="hero" aria-labelledby="top"><div class="wrap">'
         f'<div class="hero-text"><p class="eyebrow">{e(h["eyebrow"])}</p><h1 id="top">{e(h["title"])}</h1>'
         f'<p class="lead">{e(h["lead"])}</p>'
-        f'<div class="cta"><a class="btn btn-primary" href="{c.GITHUB}">{e(h["cta"])}</a>'
+        f'<div class="cta"><a class="btn btn-primary" href="{c.EARLY_ACCESS[lang]}">{e(h["cta"])}</a>'
         f'<a class="btn btn-ghost" href="#features">{e(h["cta2"])}</a></div>'
         f'<p class="status-note">{e(h["status"])}</p><ul class="chips">{chips}</ul></div>'
         f'<div class="stage">{stage}</div></div></section>'
@@ -156,7 +155,7 @@ def home(t, lang: str) -> str:
         f'<p class="sub">{e(st["intro"])}</p><div class="two">'
         f'<div class="card"><h3>{e(st["works_title"])}</h3><ul>{works}</ul></div>'
         f'<div class="card later"><h3>{e(st["later_title"])}</h3><ul>{later}</ul>'
-        f'<p><a href="{c.GITHUB}/issues">{e(st["link"])}</a></p></div></div></div></section>'
+        f'<p><a href="mailto:{c.EMAIL}">{e(st["link"])}</a></p></div></div></div></section>'
         "</main>" + footer(t, privacy) + "</body></html>"
     )
 

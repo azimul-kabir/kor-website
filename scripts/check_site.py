@@ -13,7 +13,7 @@ from urllib.parse import unquote, urlparse
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 PAGES = ["index.html", "bn/index.html", "privacy/index.html", "404.html"]
-OUTSIDE = ("https://github.com/azimul-kabir", "https://azimulkabir.com", "https://kor.azimulkabir.com", "mailto:kor@azimulkabir.com")
+OUTSIDE = ("https://azimulkabir.com", "https://kor.azimulkabir.com", "mailto:kor@azimulkabir.com")
 errors: list[str] = []
 
 
@@ -94,6 +94,14 @@ for name, page in pages.items():
             other = pages.get(str(file.relative_to(ROOT))) or parse(file)
             if parsed.fragment not in other.ids:
                 errors.append(f"{name}: {target} points at a missing anchor")
+
+# The app is private: no page may link to a repository or claim a licence for the app.
+for name in PAGES:
+    text = (ROOT / name).read_text(encoding="utf-8")
+    if "github.com" in text:
+        errors.append(f"{name}: links to GitHub, but the app's repository is private")
+    if re.search(r"GPL|General Public Licen", text):
+        errors.append(f"{name}: mentions the GPL, but the app's source is private")
 
 # The two home pages must link to each other with matching languages.
 en, bn = pages["index.html"], pages["bn/index.html"]

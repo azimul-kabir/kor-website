@@ -3,15 +3,19 @@
 Edit the words here, then run `python3 build.py`. The build refuses to run if the two languages
 have different keys or a different number of list items, so the pages cannot drift apart.
 
-Figures and claims come from the app's README and the app itself; keep them true to what the app does
-today (see the status table in https://github.com/azimul-kabir/kor).
+Figures and claims come from the app itself; keep them true to what the app does today (see the status
+table in the private app repository's README). The app's source is private, so the site makes no claim
+about its licence and links to no repository.
 """
 
 SITE = "https://kor.azimulkabir.com"
-GITHUB = "https://github.com/azimul-kabir/kor"
 DEVELOPER = "https://azimulkabir.com"
-DEVELOPER_GITHUB = "https://github.com/azimul-kabir"
 EMAIL = "kor@azimulkabir.com"
+# The app is not released and its source is private, so the way in is an email, with a subject filled in.
+EARLY_ACCESS = {
+    "en": "mailto:kor@azimulkabir.com?subject=Kor%20updates",
+    "bn": "mailto:kor@azimulkabir.com?subject=%E0%A6%95%E0%A6%B0%20%E0%A6%86%E0%A6%AA%E0%A6%A1%E0%A7%87%E0%A6%9F",
+}
 
 # Screenshot names (assets/shots/<lang>/<name>.webp) in the order of the gallery.
 GALLERY = ["01-home", "04-tax-detail", "06-wealth-assets", "07-ereturn", "09-calculator"]
@@ -23,17 +27,17 @@ EN = {
     "title": "Kor: Bangladesh income tax, worked out as you go",
     "description": "Kor is a private Android app for Bangladesh personal income tax. Record income, investments and tax paid through the year, see what you owe, and get your wealth statement ready. Offline, in English or Bangla.",
     "skip": "Skip to content",
-    "nav": {"features": "Features", "screens": "Screens", "privacy": "Privacy", "status": "Status", "github": "GitHub"},
+    "nav": {"features": "Features", "screens": "Screens", "privacy": "Privacy", "status": "Status"},
     "switch_label": "Language",
     "switch_to": "বাংলা",
     "hero": {
         "eyebrow": "Bangladesh personal income tax",
         "title": "Know your income tax as you go.",
         "lead": "Kor is a private Android app. Record income, investments and tax paid through the year. See what you owe, how much more you can invest for the rebate before 30 June, and get your wealth statement ready for the e-return.",
-        "cta": "View on GitHub",
+        "cta": "Get updates by email",
         "cta2": "See what it does",
-        "status": "Pre-alpha, for tax year 2026-27. There is no download yet: you can build the app from source on GitHub.",
-        "chips": ["Works offline", "No account, ads or analytics", "Free software (GPLv3)", "English and বাংলা"],
+        "status": "Pre-alpha, for tax year 2026-27. Kor is not released yet: write to us and we will tell you when it is ready.",
+        "chips": ["Works offline", "No account, ads or analytics", "Figures stay on your phone", "English and বাংলা"],
     },
     "glance": {
         "title": "Where you stand, at a glance",
@@ -96,7 +100,7 @@ EN = {
             "No account, no sign-in, no analytics, no advertising, no crash reporting",
             "Excluded from Android backup and device transfer",
             "Notifications only if you turn reminders on, and they never show amounts",
-            "Free software under the GPLv3: read exactly what it does",
+            "Check it yourself: Kor asks for no internet permission, which your phone's app settings show",
         ],
         "link": "Read the privacy policy",
     },
@@ -123,16 +127,14 @@ EN = {
             "Importing from Actua and Actual Budget",
             "More than one taxpayer on one phone",
         ],
-        "link": "Follow progress on GitHub",
+        "link": "Tell us what you need",
     },
     "footer": {
         "disclaimer": "Kor is an independent tool and is not affiliated with the National Board of Revenue (NBR). It helps you prepare figures; it is not tax advice. Check your return against the Income Tax Act 2023, the Finance Act for the year and NBR guidance before filing.",
         "made": "Made by Azimul Kabir Apu",
         "contact": "Contact",
         "developer": "Developer's website",
-        "source": "Source on GitHub",
         "privacy": "Privacy policy",
-        "licence": "Free software under the GNU General Public License v3.",
     },
     "privacy_page": {"title": "Kor privacy policy", "back": "Back to the home page"},
     "notfound": {"title": "Page not found", "body": "That page does not exist. The home page has everything.", "link": "Go to the home page"},
@@ -144,17 +146,17 @@ BN = {
     "title": "কর (Kor): বাংলাদেশের আয়কর, বছরজুড়ে হিসাব",
     "description": "কর (Kor) বাংলাদেশের ব্যক্তিগত আয়করের জন্য একটি ব্যক্তিগত অ্যান্ড্রয়েড অ্যাপ। বছরজুড়ে আয়, বিনিয়োগ ও পরিশোধিত কর লিখে রাখুন, দেখুন কত কর দিতে হবে, আর সম্পদ বিবরণী তৈরি রাখুন। অফলাইনে চলে, বাংলা ও ইংরেজিতে।",
     "skip": "মূল অংশে যান",
-    "nav": {"features": "সুবিধা", "screens": "স্ক্রিন", "privacy": "গোপনীয়তা", "status": "অবস্থা", "github": "গিটহাব"},
+    "nav": {"features": "সুবিধা", "screens": "স্ক্রিন", "privacy": "গোপনীয়তা", "status": "অবস্থা"},
     "switch_label": "ভাষা",
     "switch_to": "English",
     "hero": {
         "eyebrow": "বাংলাদেশের ব্যক্তিগত আয়কর",
         "title": "বছরজুড়ে জানুন, আয়কর কত।",
         "lead": "কর একটি ব্যক্তিগত অ্যান্ড্রয়েড অ্যাপ। বছরের মধ্যেই আয়, বিনিয়োগ ও পরিশোধিত কর লিখে রাখুন। দেখুন কত কর দিতে হবে, ৩০ জুনের আগে রেয়াতের জন্য আর কত বিনিয়োগ করা যায়, আর ই-রিটার্নের জন্য সম্পদ বিবরণী তৈরি রাখুন।",
-        "cta": "গিটহাবে দেখুন",
+        "cta": "ইমেইলে খবর পান",
         "cta2": "কী কী করে দেখুন",
-        "status": "প্রি-আলফা, করবর্ষ ২০২৬-২৭ এর জন্য। এখনো ডাউনলোড নেই: গিটহাব থেকে সোর্স নিয়ে অ্যাপটি বানিয়ে নিতে পারেন।",
-        "chips": ["অফলাইনে চলে", "অ্যাকাউন্ট, বিজ্ঞাপন বা অ্যানালিটিক্স নেই", "ফ্রি সফটওয়্যার (GPLv3)", "বাংলা ও English"],
+        "status": "প্রি-আলফা, করবর্ষ ২০২৬-২৭ এর জন্য। কর এখনো প্রকাশিত হয়নি: আমাদের লিখুন, তৈরি হলে জানাব।",
+        "chips": ["অফলাইনে চলে", "অ্যাকাউন্ট, বিজ্ঞাপন বা অ্যানালিটিক্স নেই", "হিসাব থাকে আপনার ফোনেই", "বাংলা ও English"],
     },
     "glance": {
         "title": "এক নজরে আপনার অবস্থান",
@@ -217,7 +219,7 @@ BN = {
             "অ্যাকাউন্ট, সাইন-ইন, অ্যানালিটিক্স, বিজ্ঞাপন বা ক্র্যাশ রিপোর্টিং নেই",
             "অ্যান্ড্রয়েড ব্যাকআপ ও ডিভাইস ট্রান্সফার থেকে বাদ",
             "নোটিফিকেশন শুধু আপনি স্মরণ চালু করলে, আর তাতে কোনো অঙ্ক দেখানো হয় না",
-            "জিপিএলভি৩ অনুযায়ী ফ্রি সফটওয়্যার: ঠিক কী করে নিজে দেখে নিন",
+            "নিজে যাচাই করুন: কর ইন্টারনেট অনুমতি চায় না, আপনার ফোনের অ্যাপ সেটিংসেই তা দেখা যায়",
         ],
         "link": "গোপনীয়তা নীতি পড়ুন",
     },
@@ -244,16 +246,14 @@ BN = {
             "Actua ও Actual Budget থেকে ইমপোর্ট",
             "এক ফোনে একাধিক করদাতা",
         ],
-        "link": "গিটহাবে অগ্রগতি দেখুন",
+        "link": "আপনার কী দরকার জানান",
     },
     "footer": {
         "disclaimer": "কর একটি স্বাধীন টুল, জাতীয় রাজস্ব বোর্ডের (এনবিআর) সঙ্গে এর কোনো সম্পর্ক নেই। এটি হিসাব তৈরিতে সাহায্য করে; এটি কর পরামর্শ নয়। দাখিলের আগে আপনার রিটার্ন আয়কর আইন ২০২৩, সংশ্লিষ্ট বছরের অর্থ আইন ও এনবিআরের নির্দেশনার সঙ্গে মিলিয়ে নিন।",
         "made": "তৈরি করেছেন আজিমুল কবির আপু",
         "contact": "যোগাযোগ",
         "developer": "ডেভেলপারের ওয়েবসাইট",
-        "source": "গিটহাবে সোর্স",
         "privacy": "গোপনীয়তা নীতি",
-        "licence": "জিএনইউ জেনারেল পাবলিক লাইসেন্স ভার্সন ৩ অনুযায়ী ফ্রি সফটওয়্যার।",
     },
     "privacy_page": {"title": "কর গোপনীয়তা নীতি", "back": "হোম পাতায় ফিরুন"},
     "notfound": {"title": "পাতাটি পাওয়া যায়নি", "body": "এই পাতাটি নেই। হোম পাতায় সবকিছু আছে।", "link": "হোম পাতায় যান"},
