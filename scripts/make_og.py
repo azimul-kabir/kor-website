@@ -27,6 +27,54 @@ def rounded(image: Image.Image, radius: int) -> Image.Image:
     return image
 
 
+def render_logo(size: int, ring: bool = False) -> Image.Image:
+    """The Kor logo drawn from its shapes (assets/logo.svg), at 8x and scaled down, so it is sharp at any size.
+
+    Pillow cannot read SVG, so the shapes are drawn here with the same numbers as the file: a green disc, the
+    white "kor" strokes and the amber dot, scaled 1.32 about the centre.
+    """
+    ss = 8
+    big = size * ss
+    f = big / 108
+    k = 1.32  # the logo's own scale inside the 108-unit disc
+
+    def pt(x, y):
+        return ((k * (x - 54) + 54 - 1.32) * f, (k * (y - 54) + 54 + 3.96) * f)
+
+    img = Image.new("RGBA", (big, big), (0, 0, 0, 0))
+    d = ImageDraw.Draw(img)
+    inset = 3 * ss if ring else 0  # leave room for the ring around the disc
+    d.ellipse((inset, inset, big - 1 - inset, big - 1 - inset), fill=(0, 106, 78, 255))
+    if ring:
+        # A thin light ring, like the one on the app's About screen, shows the circle against the same green.
+        d.ellipse((0, 0, big - 1, big - 1), outline=(255, 255, 255, 150), width=3 * ss)
+    width = 6 * k * f
+    r = width / 2
+
+    def dot(x, y, radius, fill):
+        d.ellipse((x - radius, y - radius, x + radius, y + radius), fill=fill)
+
+    def stroke(points):
+        for a, b in zip(points, points[1:]):
+            d.line((*pt(*a), *pt(*b)), fill="white", width=round(width))
+        for p in (points[0], points[-1]):
+            dot(*pt(*p), r, "white")
+
+    stroke([(26, 36), (26, 66)])  # k: stem
+    stroke([(41, 46), (26, 59)])  # k: upper arm
+    stroke([(32, 54), (42, 66)])  # k: leg
+    cx, cy = pt(56, 56)  # o
+    d.ellipse((cx - 10 * k * f - r, cy - 10 * k * f - r, cx + 10 * k * f + r, cy + 10 * k * f + r), fill="white")
+    d.ellipse((cx - 10 * k * f + r, cy - 10 * k * f + r, cx + 10 * k * f - r, cy + 10 * k * f - r), fill=(0, 106, 78, 255))
+    stroke([(74, 66), (74, 46)])  # r: stem
+    # r: the curved arm, a quadratic curve from (74,56) through (75,46) to (82,46)
+    curve = [((1 - t) ** 2 * 74 + 2 * (1 - t) * t * 75 + t * t * 82, (1 - t) ** 2 * 56 + 2 * (1 - t) * t * 46 + t * t * 46) for t in [i / 40 for i in range(41)]]
+    for x, y in curve:  # a dot at every sample: short thick line segments leave gaps
+        dot(*pt(x, y), r, "white")
+    dot(*pt(84, 63), 3.5 * k * f, (251, 191, 119, 255))  # the dot
+    return img.resize((size, size), Image.LANCZOS)
+
+
 def phone(shot: Image.Image, height: int) -> Image.Image:
     width = round(shot.width * height / shot.height)
     screen = rounded(shot.resize((width, height), Image.LANCZOS), 30)
@@ -56,19 +104,10 @@ def main(raw: pathlib.Path, font_path: str, logo: bool = True, out: pathlib.Path
         return f
 
     draw = ImageDraw.Draw(canvas)
-    # Logo: the round badge cropped from a home screenshot (top right of the bar). Without it the text moves up.
+    # Logo: drawn from its vector shapes, so it is sharp. Without it the text moves up.
     dy = 0
     if logo:
-        home = Image.open(raw / "en" / "01-home.png").convert("RGB")
-        badge = home.crop((920, 103, 1020, 203)).resize((96, 96), Image.LANCZOS)
-        # The mask sits a little inside the badge so the light pixels at its edge are left out, and a thin light
-        # ring, like the one on the app's About screen, shows the circle against the same green.
-        mask = Image.new("L", badge.size, 0)
-        ImageDraw.Draw(mask).ellipse((3, 3, 93, 93), fill=255)
-        canvas.paste(badge, (72, 70), mask)
-        ring = Image.new("RGBA", canvas.size, (0, 0, 0, 0))
-        ImageDraw.Draw(ring).ellipse((72, 70, 72 + 96, 70 + 96), outline=(255, 255, 255, 140), width=3)
-        canvas.alpha_composite(ring)
+        canvas.alpha_composite(render_logo(112, ring=True), (66, 56))
         draw = ImageDraw.Draw(canvas)
     else:
         dy = -50
