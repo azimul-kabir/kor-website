@@ -72,8 +72,8 @@ a:hover { text-decoration-thickness: 2px; }
 /* Header */
 .bar { position: absolute; inset: 0 0 auto 0; z-index: 10; }
 .bar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 18px; padding-bottom: 18px; }
-.brand { display: flex; align-items: center; gap: 10px; color: #fff; text-decoration: none; font-weight: 700; font-size: 1.25rem; }
-.brand img { width: 40px; height: 40px; }
+.brand { display: flex; align-items: center; border-radius: 50%; }
+.brand img { width: 48px; height: 48px; }
 .nav { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; justify-content: flex-end; }
 .nav a { color: #fff; text-decoration: none; padding: 8px 12px; border-radius: 999px; font-size: 0.95rem; opacity: 0.92; }
 .nav a:hover { background: rgb(255 255 255 / 0.14); opacity: 1; }

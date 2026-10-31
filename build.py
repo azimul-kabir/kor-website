@@ -62,7 +62,7 @@ def header(t, up: str, home: str, other: str, privacy: str, github: bool = True)
     return (
         f'<a class="skip" href="#main">{e(t["skip"])}</a>'
         f'<header class="bar"><div class="wrap">'
-        f'<a class="brand" href="{home}"><img src="{up}assets/logo.svg" width="40" height="40" alt="">{e(t["name"])}</a>'
+        f'<a class="brand" href="{home}"><img src="{up}assets/logo.svg" width="48" height="48" alt="{e(t["name"])}"></a>'
         f'<nav class="nav" aria-label="Main">{links}'
         f'<a class="lang" href="{other}" lang="{"bn" if t["lang"] == "en" else "en"}" hreflang="{"bn" if t["lang"] == "en" else "en"}" '
         f'aria-label="{e(t["switch_label"])}">{e(t["switch_to"])}</a></nav></div></header>'
