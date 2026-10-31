@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 """Draws assets/og.png (1200x630), the picture shown when a page is shared on WhatsApp, Facebook and the like.
 
-    python3 scripts/make_og.py /path/to/raw /path/to/Inter.ttf
+    python3 scripts/make_og.py /path/to/raw /path/to/Inter.ttf [--no-logo] [--out path.png]
 
 raw is the same folder of full-size screenshots that optimize_shots.py reads (raw/en/*.png); the font is any
 Inter .ttf (the app bundles one in app/src/main/res/font). Needs Pillow. Latin text only: Pillow cannot shape Bangla.
+
+The logo already says "kor.", so no "Kor" text is drawn beside it. --no-logo leaves the logo out too, for a README that
+shows the logo above the banner; --out writes somewhere other than assets/og.png.
 """
 import pathlib
 import sys
@@ -34,7 +37,7 @@ def phone(shot: Image.Image, height: int) -> Image.Image:
     return body
 
 
-def main(raw: pathlib.Path, font_path: str) -> None:
+def main(raw: pathlib.Path, font_path: str, logo: bool = True, out: pathlib.Path = ROOT / "assets" / "og.png") -> None:
     # Vertical gradient, light green at the top right to deep green at the bottom left.
     canvas = Image.new("RGB", (W, H), GREEN)
     px = canvas.load()
@@ -53,30 +56,38 @@ def main(raw: pathlib.Path, font_path: str) -> None:
         return f
 
     draw = ImageDraw.Draw(canvas)
-    # Logo: the round badge cropped from a home screenshot (top right of the bar).
-    home = Image.open(raw / "en" / "01-home.png").convert("RGB")
-    logo = home.crop((920, 103, 1020, 203)).resize((96, 96), Image.LANCZOS)
-    mask = Image.new("L", logo.size, 0)
-    ImageDraw.Draw(mask).ellipse((0, 0, 96, 96), fill=255)
-    canvas.paste(logo, (72, 70), mask)
-    draw.text((184, 92), "Kor", font=font(44, 800), fill="white")
+    # Logo: the round badge cropped from a home screenshot (top right of the bar). Without it the text moves up.
+    dy = 0
+    if logo:
+        home = Image.open(raw / "en" / "01-home.png").convert("RGB")
+        badge = home.crop((920, 103, 1020, 203)).resize((96, 96), Image.LANCZOS)
+        mask = Image.new("L", badge.size, 0)
+        ImageDraw.Draw(mask).ellipse((0, 0, 96, 96), fill=255)
+        canvas.paste(badge, (72, 70), mask)
+    else:
+        dy = -50
 
-    draw.text((72, 210), "Know your", font=font(76, 800), fill="white")
-    draw.text((72, 290), "income tax", font=font(76, 800), fill="white")
-    draw.text((72, 370), "as you go.", font=font(76, 800), fill=AMBER)
-    draw.text((72, 488), "Bangladesh personal income tax.", font=font(28, 500), fill=MINT)
-    draw.text((72, 528), "Offline. English and Bangla.", font=font(28, 500), fill=MINT)
+    draw.text((72, 210 + dy), "Know your", font=font(76, 800), fill="white")
+    draw.text((72, 290 + dy), "income tax", font=font(76, 800), fill="white")
+    draw.text((72, 370 + dy), "as you go.", font=font(76, 800), fill=AMBER)
+    draw.text((72, 488 + dy), "Bangladesh personal income tax.", font=font(28, 500), fill=MINT)
+    draw.text((72, 528 + dy), "Offline. English and Bangla.", font=font(28, 500), fill=MINT)
 
     shots = [(raw / "en" / "09-calculator.png", 610, 70, 16), (raw / "en" / "02-home-tiles.png", 740, 34, 0)]
     for path, x, y, tilt in shots:
         body = phone(Image.open(path).convert("RGB"), 520)
         canvas.alpha_composite(body, (x, y + 0))
     # Bottom of the phones runs off the card, as in the hero.
-    canvas.convert("RGB").save(ROOT / "assets" / "og.png", optimize=True)
-    print("wrote assets/og.png")
+    canvas.convert("RGB").save(out, optimize=True)
+    print(f"wrote {out}")
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 3:
+    args = [a for a in sys.argv[1:] if not a.startswith("--")]
+    out = ROOT / "assets" / "og.png"
+    if "--out" in sys.argv:
+        out = pathlib.Path(sys.argv[sys.argv.index("--out") + 1])
+        args = [a for a in args if a != str(out)]
+    if len(args) != 2:
         raise SystemExit(__doc__)
-    main(pathlib.Path(sys.argv[1]), sys.argv[2])
+    main(pathlib.Path(args[0]), args[1], logo="--no-logo" not in sys.argv, out=out)
