@@ -61,9 +61,15 @@ def main(raw: pathlib.Path, font_path: str, logo: bool = True, out: pathlib.Path
     if logo:
         home = Image.open(raw / "en" / "01-home.png").convert("RGB")
         badge = home.crop((920, 103, 1020, 203)).resize((96, 96), Image.LANCZOS)
+        # The mask sits a little inside the badge so the light pixels at its edge are left out, and a thin light
+        # ring, like the one on the app's About screen, shows the circle against the same green.
         mask = Image.new("L", badge.size, 0)
-        ImageDraw.Draw(mask).ellipse((0, 0, 96, 96), fill=255)
+        ImageDraw.Draw(mask).ellipse((3, 3, 93, 93), fill=255)
         canvas.paste(badge, (72, 70), mask)
+        ring = Image.new("RGBA", canvas.size, (0, 0, 0, 0))
+        ImageDraw.Draw(ring).ellipse((72, 70, 72 + 96, 70 + 96), outline=(255, 255, 255, 140), width=3)
+        canvas.alpha_composite(ring)
+        draw = ImageDraw.Draw(canvas)
     else:
         dy = -50
 
